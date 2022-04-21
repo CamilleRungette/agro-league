@@ -9,8 +9,8 @@
 ## Improvements 
 
 The project could be improved by: 
-- Being able to go back to past searches
-- Displaying several movies after the search
+- Being able to go back to old researches 
+- Displaying several movies after the research
 - Having a "favorite" option
 
 ## Modules
