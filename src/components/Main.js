@@ -7,8 +7,7 @@ import { useDispatch } from 'react-redux'
 import { addMovie } from "../app/reducer";
 import {Link} from "react-router-dom";
 import Snackbar from '@mui/material/Snackbar';
-import MuiAlert, { AlertProps } from '@mui/material/Alert';
-import Button from '@mui/material/Button';
+import MuiAlert from '@mui/material/Alert';
 
 const Alert = React.forwardRef(function Alert(
   props,
@@ -81,7 +80,7 @@ const Main = ()  => {
 
   return (
     <div className="app-main">
-      <div className="show-movie">
+      <div className="preview-div">
         <h1> Agro-League Movies</h1>
         <div className="preview">
           <div className="api-presentation">

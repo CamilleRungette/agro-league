@@ -4,8 +4,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import Main from "./Main";
-import Movie from "./Movie";
+ import {Main, Movie} from "./_index"
 
 const Navigation = () => {
   return (

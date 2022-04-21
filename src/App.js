@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import './sass/style.scss';
 import Navigation from "./components/Navigation";
 import Navbar from "./components/Navbar";
