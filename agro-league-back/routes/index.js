@@ -12,12 +12,12 @@ router.get('/search', function(req, res, next) {
 
   let baseUrl = `http://www.omdbapi.com?t=${req.query.title}`;
   if (req.query.year) baseUrl = `${baseUrl}&y=${req.query.year}`;
-  let url = `${baseUrl}&plot=full&apikey=${process.env.apikey}`;
-  console.log(url);
+  if (req.query.plot) baseUrl = `${baseUrl}&plot=${req.query.plot}`;
+  let url = `${baseUrl}&apikey=${process.env.apikey}`;
 
   axios.get(`${url}`)
   .then(response => {
-    console.log(response);
+    console.log("success");
     res.send(response.data)
   })
   .catch(err => {
