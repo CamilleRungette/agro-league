@@ -1,12 +1,21 @@
 import React, { useEffect, useState } from "react";
 import '../sass/style.scss';
 import axios from "axios";
-import { Navbar } from "./_index";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux'
 import { addMovie } from "../app/reducer";
 import {Link} from "react-router-dom";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert, { AlertProps } from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+
+const Alert = React.forwardRef(function Alert(
+  props,
+  ref,
+) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const Main = ()  => {
 
@@ -18,6 +27,20 @@ const Main = ()  => {
   });
   const [movie, setMovie] = useState();
   const [poster, setPoster] = useState({});
+  const [open, setOpen] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
 
 
   useEffect(() => {
@@ -33,14 +56,27 @@ const Main = ()  => {
 
   const searchMovie = (e) => {
     e.preventDefault();
-    axios.get(`http://localhost:3000/search?title=${searchedMovie.title.replace(/ /g,"+")}&year=${searchedMovie.year}&plot=full`)
-    .then(res => {
-      setMovie(res.data);
-      dispatch(addMovie(res.data))
-    })
-    .catch(err => {
-      console.log(err);
-    })
+
+    if (!searchedMovie.title) {
+      setError('Movie title is mandatory')
+      handleClick()
+    } else {
+      axios.get(`http://localhost:3000/search?title=${searchedMovie.title.replace(/ /g,"+")}&year=${searchedMovie.year}&plot=full`)
+      .then(res => {
+        if (res.data.Response === "True"){
+          setMovie(res.data);
+          dispatch(addMovie(res.data))
+        } else {
+          setError('Sorry, we couldn\'t find anything')
+          handleClick()
+        }
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    };
+
   };
 
   return (
@@ -54,7 +90,7 @@ const Main = ()  => {
           </div>
           <div className="poster">
             <img src={poster?.Poster} alt={poster.Title} />
-            <div>
+            <div className="poster-description">
               <h3 className="title">{poster.Title}</h3>
               <p>{poster.Plot} </p>
             </div>
@@ -98,6 +134,12 @@ const Main = ()  => {
             <Link to ="/movie"><button className="button">See more </button> </Link>
           </div>
         }
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

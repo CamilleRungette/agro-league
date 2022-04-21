@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Movie = () => {
 
   const thisMovie = useSelector(state => state.movie.movie)
-  console.log(thisMovie);
+
   return (
     <div className='movie-main'>
       <Link to="/"><button className='button'>Go Back</button></Link>
@@ -32,6 +32,6 @@ const Movie = () => {
       </div>
     </div>
   )
-}
+};
 
 export default Movie
