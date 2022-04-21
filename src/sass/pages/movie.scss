@@ -1,0 +1,24 @@
+.movie-main{
+  width: 80%;
+  margin: auto;
+
+  .button{
+    padding: 9px 40px;
+    margin-top: 60px
+  };
+
+  h1{
+    margin: 50px 0 50px 300px; 
+  };
+
+  .poster-desc{
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+
+    .description{
+      width: 60%
+    };
+  };
+}

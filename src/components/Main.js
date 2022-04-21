@@ -4,15 +4,13 @@ import axios from "axios";
 import { Navbar } from "./_index";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addMovie } from "../app/reducer";
+import {Link} from "react-router-dom";
 
 const Main = ()  => {
 
-  const thisMovie = useSelector(state => state.movie)
   const dispatch = useDispatch();
-
-  console.log(thisMovie);
 
   const [searchedMovie, setSearchedMovie] = useState({
     title: "",
@@ -47,8 +45,6 @@ const Main = ()  => {
 
   return (
     <div className="app-main">
-      <Navbar />
-
       <div className="show-movie">
         <h1> Agro-League Movies</h1>
         <div className="preview">
@@ -99,7 +95,7 @@ const Main = ()  => {
           <div className="movie">
             <h2>{movie.Title} ({movie.Year}) </h2>
             <p className="description"> {movie.Plot} </p>
-            <button className="button">See more </button>
+            <Link to ="/movie"><button className="button">See more </button> </Link>
           </div>
         }
     </div>
